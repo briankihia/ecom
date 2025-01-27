@@ -2,11 +2,16 @@ from django.shortcuts import render
 from django.http import JsonResponse
 import json
 import datetime
+from django.contrib.auth.decorators import login_required
 from .models import *
 
 # Create your views here.
 
+@login_required
 def store(request):
+    user = request.user
+    if not hasattr(user, 'customer'):
+        Customer.objects.create(user=user, name=user.username, email=user.email)
     if request.user.is_authenticated:
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
@@ -22,12 +27,14 @@ def store(request):
 
 
     products = Product.objects.all()
-    context = {'products': products, 'cartItems': cartItems}
+    context = {'products': products, 'cartItems': cartItems, 'user_name': user.username}
     return render(request, 'store.html', context)
 
-
+@login_required
 def cart(request):
-
+    user = request.user
+    if not hasattr(user, 'customer'):
+        Customer.objects.create(user=user, name=user.username, email=user.email)
     if request.user.is_authenticated:
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
@@ -41,11 +48,14 @@ def cart(request):
         order = {'get_cart_total':0, 'get_cart_items':0, 'shipping': False }
         cartItems = order['get_cart_items']
 
-    context = {'items':items, 'order':order,'cartItems':cartItems}
+    context = {'items':items, 'order':order,'cartItems':cartItems, 'user_name': user.username}
     return render(request, 'cart.html', context)
 
-
+@login_required
 def checkout(request):
+    user = request.user
+    if not hasattr(user, 'customer'):
+        Customer.objects.create(user=user, name=user.username, email=user.email)
     if request.user.is_authenticated:
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
@@ -60,12 +70,14 @@ def checkout(request):
         order = {'get_cart_total':0, 'get_cart_items':0, 'shipping': False}
         cartItems = order['get_cart_items']
 
-    context = {'items':items, 'order':order, 'cartItems':cartItems}
+    context = {'items':items, 'order':order, 'cartItems':cartItems, 'user_name': user.username}
     return render(request, 'checkout.html', context)
 
-    
-
+@login_required
 def updateItem(request):
+    user = request.user
+    if not hasattr(user, 'customer'):
+        Customer.objects.create(user=user, name=user.username, email=user.email)
     # we set the value of data to that response
     data = json.loads(request.body)
     # here we are getting the values of productId  and action
@@ -102,7 +114,11 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 @csrf_exempt
+@login_required
 def processOrder(request):
+    user = request.user
+    if not hasattr(user, 'customer'):
+        Customer.objects.create(user=user, name=user.username, email=user.email)
     transaction_id = datetime.datetime.now().timestamp()
     data = json.loads(request.body)
 
