@@ -55,7 +55,7 @@ def register(request):
 
 def user_logout(request):
     logout(request)
-    return redirect('login')
+    return redirect('store')
 
 
 def check_authentication(request):
