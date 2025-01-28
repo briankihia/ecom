@@ -17,8 +17,26 @@
                     <h6 class="card-title"><strong>{{product.name}}</strong></h6>
                     <hr>
                     <button data-product={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
-                    <a href="#" class="btn btn-outline-success">View</a>
+                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#viewModal{{product.id}}">View</button>
                     <h4 class="float-right"><strong>${{product.price|floatformat:2}}</strong></h4>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="viewModal{{product.id}}" tabindex="-1" aria-labelledby="viewModalLabel{{product.id}}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="viewModalLabel{{product.id}}">{{product.name}}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <img class="img-fluid" src="{{product.imageURL}}" alt="{{product.name}}" style="width: 100%; height: 400px; object-fit: contain;">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
