@@ -48,19 +48,16 @@
               </li>
             </ul>
 
-            <div class="form-inline my-2 my-lg-0">
+            <div class="d-flex align-items-center">
                 {% if request.user.is_authenticated %}
-                <span class="navbar-text text-white">Welcome, {{ request.user.username }}!</span>
-                <a href="{% url 'user_logout' %}" class="btn btn-danger">Logout</a>
+                <a href="{% url 'user_logout' %}" class="btn btn-danger me-2">Logout</a>
                 {% else %}
-                <a href="{% url 'login' %}" class="btn btn-warning">Login</a>
+                <a href="{% url 'login' %}" class="btn btn-warning me-2">Login</a>
                 {% endif %}
-                <a href="{% url 'cart'%}" >
+                <a href="{% url 'cart'%}" class="d-flex align-items-center">
                     <img id="cart-icon" src="{% static 'images/cart.png'%}" alt="">
+                    <p id="cart-total" class="mb-0 ms-2">{{cartItems}}</p>
                 </a>
-                <p id="cart-total">{{cartItems}}</p>
-             
-
             </div>
             
           </div>
