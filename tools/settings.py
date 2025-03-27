@@ -142,3 +142,5 @@ PAYPAL_TEST = True
 
 # below is our sandbox business account email
 PAYPAL_RECEIVER_EMAIL = 'kihia.kiama1@students.jkuat.ac.ke'
+
+LOGIN_URL = 'login'

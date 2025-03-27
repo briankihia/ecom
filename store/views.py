@@ -16,12 +16,12 @@ import uuid
 
 # Create your views here.
 
-@login_required
+# @login_required
 def store(request):
     user = request.user
-    if not hasattr(user, 'customer'):
-        Customer.objects.create(user=user, name=user.username, email=user.email)
     if request.user.is_authenticated:
+        if not hasattr(user, 'customer'):
+            Customer.objects.create(user=user, name=user.username, email=user.email)
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         # here we are creating an object or query one
@@ -39,12 +39,12 @@ def store(request):
     context = {'products': products, 'cartItems': cartItems, 'user_name': user.username}
     return render(request, 'store.html', context)
 
-@login_required
+# @login_required
 def cart(request):
     user = request.user
-    if not hasattr(user, 'customer'):
-        Customer.objects.create(user=user, name=user.username, email=user.email)
     if request.user.is_authenticated:
+        if not hasattr(user, 'customer'):
+            Customer.objects.create(user=user, name=user.username, email=user.email)
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         # here we are creating an object or query one
