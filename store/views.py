@@ -5,6 +5,15 @@ import datetime
 from django.contrib.auth.decorators import login_required
 from .models import *
 
+# https://www.youtube.com/watch?v=86KSu7aC0Ck&t=200s  where to get this info about paypal django
+# Import some paypal stuff
+# reverse sends us back, make payment gets reversed back to some page on our website from paypal
+from django.urls import reverse
+from paypal.standard.forms import PayPalPaymentsForm
+from django.conf import settings
+# below allows us to create unique user id for duplicate orders.
+import uuid 
+
 # Create your views here.
 
 @login_required

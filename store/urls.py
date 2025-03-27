@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path,include
 from .import views 
 
 
@@ -10,5 +10,7 @@ urlpatterns = [
 
     path('update_item/', views.updateItem, name="update_item"),
     
-    path('process_order/', views.processOrder, name="process_order")
+    path('process_order/', views.processOrder, name="process_order"),
+    # below is a url that comes with the paypal library and allows us to use automatically
+    path('paypal/', include('paypal.standard.ipn.urls')),
 ]

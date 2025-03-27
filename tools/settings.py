@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'store.apps.StoreConfig',
     'accounts',
+    'paypal.standard.ipn',
 ]
 
 MIDDLEWARE = [
@@ -133,3 +134,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'tools/static/images')
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# PayPal settings
+# set sandbox to True while testing
+PAYPAL_TEST = True
+
+# below is our sandbox business account email
+PAYPAL_RECEIVER_EMAIL = 'kihia.kiama1@students.jkuat.ac.ke'
