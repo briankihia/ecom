@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect  # Import redirect for redirection
 from django.http import JsonResponse
 import json
 import datetime
@@ -219,7 +219,16 @@ def processOrder(request):
 
 @login_required
 def payment_success(request):
-    return HttpResponse("Payment completed successfully!")
+    user = request.user
+    if hasattr(user, 'customer'):
+        customer = user.customer
+        # Get the current incomplete order
+        order = Order.objects.filter(customer=customer, complete=False).first()
+        if order:
+            order.complete = True  # Mark the order as complete
+            order.save()
+    # Redirect to the homepage
+    return redirect('store')  # Replace 'store' with the name of your homepage URL pattern
 
 @login_required
 def payment_cancel(request):
