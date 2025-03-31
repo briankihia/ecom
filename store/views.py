@@ -4,6 +4,7 @@ import json
 import datetime
 from django.contrib.auth.decorators import login_required
 from .models import *
+from django.http import HttpResponse
 
 # https://www.youtube.com/watch?v=86KSu7aC0Ck&t=200s  where to get this info about paypal django
 # Import some paypal stuff
@@ -128,30 +129,98 @@ def processOrder(request):
     user = request.user
     if not hasattr(user, 'customer'):
         Customer.objects.create(user=user, name=user.username, email=user.email)
+
     transaction_id = datetime.datetime.now().timestamp()
     data = json.loads(request.body)
 
-    if request.user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        total = float(data['form']['total'])
-        order.transaction_id = transaction_id
+    # Get the current order
+    customer = request.user.customer
+    order, created = Order.objects.get_or_create(customer=customer, complete=False)
 
-        if total == order.get_cart_total:
-            order.complete = True
-        order.save()
+    # Validate the total amount
+    total = float(data['form']['total'])
+    if total != order.get_cart_total:
+        return JsonResponse({'error': 'Invalid total amount'}, status=400)
 
-        if order.shipping == True:
-            shippingAddress.objects.create(
-                customer=customer,
-                order=order,
-                address= data['shipping']['address'],
-                city= data['shipping']['city'],
-                state= data['shipping']['state'],
-                zipcode=data['shipping']['zipcode'],
-            )
+    # Update the order with transaction details
+    order.transaction_id = transaction_id
+    order.complete = False  # Mark as incomplete until payment is confirmed
+    order.save()
 
-    else:
-        print("User is not logged in ..")
+    # Save shipping details if required
+    if order.shipping:
+        ShippingAddress.objects.create(
+            customer=customer,
+            order=order,
+            address=data['shipping']['address'],
+            city=data['shipping']['city'],
+            state=data['shipping']['state'],
+            zipcode=data['shipping']['zipcode'],
+        )
 
-    return JsonResponse('Payment submitted!', safe=False)
+    # PayPal payment details
+    host = request.get_host()
+    paypal_dict = {
+        'cmd': '_xclick',  # Command for a single item purchase
+        'business': settings.PAYPAL_RECEIVER_EMAIL,
+        'amount': total, 
+        'item_name': f'Order {order.id}',
+        'no_shipping': '2',  # No shipping required
+        'invoice': str(uuid.uuid4()),  # Unique invoice ID
+        'currency_code': 'USD',
+        'notify_url': 'http://{}{}'.format(host,reverse('paypal-ipn')),
+        'return_url': 'http://{}{}'.format(host,reverse('payment_success')),
+        'cancel_return': 'http://{}{}'.format(host,reverse('payment_cancel')),
+        'custom': str(request.user.id),  # Add custom field for user identification
+    }
+
+    # Generate PayPal form
+    form = PayPalPaymentsForm(initial=paypal_dict)
+
+    # Render the PayPal form in the response
+    return JsonResponse({
+        'message': 'Payment initiated',
+        'paypal_form': form.render(),  # Render the PayPal form as HTML
+    })
+
+    #  paypal payment view
+
+# @login_required
+# def paypal_payment(request):
+#     user = request.user
+#     if not hasattr(user, 'customer'):
+#         Customer.objects.create(user=user, name=user.username, email=user.email)
+
+#     customer = request.user.customer
+#     order, created = Order.objects.get_or_create(customer=customer, complete=False)
+
+#     host = request.get_host()
+
+#     # PayPal payment details
+#     paypal_dict = {
+#         'cmd': '_xclick',  # Command for a single item purchase
+#         'business': settings.PAYPAL_RECEIVER_EMAIL,
+#         'amount': f"{order.get_cart_total:.2f}",  # Ensure proper formatting
+#         'item_name': f'Order {order.id}',
+#         'no_shipping': '1',  # No shipping required
+#         'invoice': str(order.id),  # Unique invoice ID
+#         'currency_code': 'USD',
+#         'notify_url': f"http://{host}{reverse('paypal-ipn')}",
+#         'return_url': f"http://{host}{reverse('payment_success')}",
+#         'cancel_return': f"http://{host}{reverse('payment_cancel')}",
+#         'custom': str(request.user.id),  # Add custom field for user identification
+#     }
+
+#     # Generate PayPal form
+#     form = PayPalPaymentsForm(initial=paypal_dict)
+#     context = {'form': form, 'order': order}
+#     return render(request, 'paypal_payment.html', context)
+
+
+@login_required
+def payment_success(request):
+    return HttpResponse("Payment completed successfully!")
+
+@login_required
+def payment_cancel(request):
+    return HttpResponse("Payment was canceled.")
