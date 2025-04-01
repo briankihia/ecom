@@ -149,6 +149,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 PAYPAL_TEST = True
 
 # below is our sandbox business account email
-PAYPAL_RECEIVER_EMAIL = 'kihia.kiama1@students.jkuat.ac.ke'
+PAYPAL_RECEIVER_EMAIL = os.getenv('PAYPAL_RECEIVER_EMAIL')
 
 LOGIN_URL = 'login'
