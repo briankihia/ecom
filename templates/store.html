@@ -123,8 +123,8 @@
     </style>
     <style>
         #cart-icon {
-            width: 32px; /* Set the width of the cart image */
-            height: 32px; /* Set the height of the cart image */
+            width: 32px; /* Default width for larger screens */
+            height: 32px; /* Default height for larger screens */
             margin-right: 8px; /* Add spacing between the image and the text */
             vertical-align: middle; /* Align the image with the text */
             margin-left: -20px;
@@ -140,11 +140,29 @@
         .cart {
             display: inline-flex; /* Use flexbox to align items side by side */
             align-items: center; /* Vertically align the cart icon and items */
-            margin-left: 20px; /* Move the cart closer to the navigation list */
+            margin-left: 15px; /* Move the cart closer to the navigation list */
         }
 
         #cart-total {
             margin: 0; /* Remove any extra margin for proper alignment */
+        }
+
+        /* Responsive styling for smaller screens */
+        @media (max-width: 768px) {
+            #cart-icon {
+                width: 24px; /* Reduce width for smaller screens */
+                height: 24px; /* Reduce height for smaller screens */
+            }
+
+            .cart {
+                margin-left: 10px; /* Move the cart slightly to the right */
+                margin-top: 5px; /* Move the cart slightly lower */
+                margin-right: -10px;
+            }
+
+            #cart-total {
+                font-size: 14px; /* Adjust font size for better alignment */
+            }
         }
     </style>
     <script>
