@@ -34,35 +34,37 @@
     </script>
 </head>
 <body>
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg" style="background-color: #404040; color: white;">
         <div class="container-fluid">
-          <a class="navbar-brand" href="{% url 'store'%}">Tools</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'store'%}">Products</a>
-              </li>
-            </ul>
-
-            <div class="d-flex align-items-center">
-                {% if request.user.is_authenticated %}
-                <a href="{% url 'user_logout' %}" class="btn btn-danger me-2">Logout</a>
-                {% else %}
-                <a href="{% url 'login' %}" class="btn btn-warning me-2">Login</a>
-                {% endif %}
-                <a href="{% url 'cart'%}" class="d-flex align-items-center">
-                    <img id="cart-icon" src="{% static 'images/cart.png'%}" alt="">
-                    <p id="cart-total" class="mb-0 ms-2">{{cartItems}}</p>
-                </a>
+            <a class="navbar-brand" href="{% url 'store' %}" style="color: white;">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon" style="color: white;"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <!-- <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'store'%}">Products</a>
+                    </li> -->
+                    {% if request.user.is_authenticated %}
+                    <div>
+                        <h5 style="color: white;">Welcome, {{ request.user.username }}!</h5>
+                    </div>
+                    {% endif %}
+                </ul>
+                <div class="d-flex align-items-center">
+                    {% if request.user.is_authenticated %}
+                    <a href="{% url 'user_logout' %}" class="btn btn-danger me-2">Logout</a>
+                    {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-warning me-2">Login</a>
+                    {% endif %}
+                    <a href="{% url 'cart' %}" class="d-flex align-items-center">
+                        <img id="cart-icon" src="{% static 'images/cart.png' %}" alt="">
+                        <p id="cart-total" class="mb-0 ms-2" style="color: white;">{{cartItems}}</p>
+                    </a>
+                </div>
             </div>
-            
-          </div>
         </div>
-      </nav>
+    </nav>
 
     <div class="container">
         {% block content %}
