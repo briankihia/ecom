@@ -30,6 +30,26 @@
         var csrftoken = getToken('csrftoken');
   
       </script>
+      <style>
+        /* Responsive Design for Featured Products */
+        @media (max-width: 768px) {
+            .gallery-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .gallery {
+                width: 90%;
+                margin: 10px auto;
+            }
+            .gallery img {
+                width: 100%;
+                height: auto;
+            }
+            .desc {
+                text-align: center;
+            }
+        }
+    </style>
     </head>
     <body>
         <div class="container">
