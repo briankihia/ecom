@@ -7,6 +7,29 @@
     <link rel="stylesheet" href=" {% static 'css/home.css'%}">
     <script src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="{% static 'js/cart.js' %}"></script>
+    
+    <script type="text/javascript">
+        var user = '{{request.user}}'
+  
+        function getToken(name) {
+          var cookieValue = null;
+          if(document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i=0; i<cookies.length; i++) {
+              var cookie = cookies[i].trim();
+              //does this cookie string begin with the name we want?
+              if (cookie.substring(0, name.length +1) === (name + '='))
+                  {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                  }
+            }
+          }
+          return cookieValue;
+        }
+        var csrftoken = getToken('csrftoken');
+  
+      </script>
     </head>
     <body>
         <div class="container">
@@ -37,7 +60,8 @@
             <div class="cart">
                 <a href="{% url 'cart' %}" class="d-flex align-items-center">
                     <!-- <img id="cart-icon" src="{% static 'images/cart.png'%}" alt=""> -->
-                    <p id="cart-total" class="mb-0 ms-2">{{ request.session.cart_items|default:0 }}</p>
+                    <!-- <p id="cart-total" class="mb-0 ms-2">{{ request.session.cart_items|default:0 }}</p> -->
+                    <p id="cart-total" class="mb-0 ms-2">{{cartItems}}</p>
                 </a>
             </div>
         </nav>
@@ -72,7 +96,8 @@
                         <p>{{ product.name }}</p>
                         <h4>${{ product.price|floatformat:2 }}</h4><br>
                         <div class="star"><ion-icon name="star"></ion-icon> {{ product.rating|default:"0.0" }} Reviews</div>
-                        <button data-product={{product.id}} data-action="add" class="add_to_cart update-cart">Add to cart</button>
+                        <!-- <button data-product={{product.id}} data-action="add" class="add_to_cart update-cart">Add to cart</button> -->
+                        <button data-product={{product.id}} data-action="add" class=" add_to_cart update-cart">Add to Cart</button>
                         <button class="buy_now">Buy now</button>
                     </div>
                 </div>
@@ -97,6 +122,12 @@
         <p><h2>DESIGN</h2><br>
         Explore and discover high-quality furniture<br> for residential and commercial spaces.<br> Our collection includes a wide range <br>of furniture such as sofas, tables, chairs,<br>beds, and cabinets that are crafted <br>with precision and attention to detail.</p></div>
         </div>
+
+
+
+
+
+        <script type="text/javascript" src="{% static 'js/cart.js'%}"></script>
 
     </body>
 
