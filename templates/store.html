@@ -121,6 +121,32 @@
             }
         }
     </style>
+    <style>
+        #cart-icon {
+            width: 32px; /* Set the width of the cart image */
+            height: 32px; /* Set the height of the cart image */
+            margin-right: 8px; /* Add spacing between the image and the text */
+            vertical-align: middle; /* Align the image with the text */
+            margin-left: -20px;
+        }
+
+        nav ul {
+            display: inline-block;
+            list-style-type: none;
+            padding-top: 25px;
+            margin-right: 20px; /* Keep the navigation list as is */
+        }
+
+        .cart {
+            display: inline-flex; /* Use flexbox to align items side by side */
+            align-items: center; /* Vertically align the cart icon and items */
+            margin-left: 20px; /* Move the cart closer to the navigation list */
+        }
+
+        #cart-total {
+            margin: 0; /* Remove any extra margin for proper alignment */
+        }
+    </style>
     <script>
         // Toggle side menu visibility
         function toggleMenu() {
@@ -172,8 +198,8 @@
             
             <div class="cart">
                 <a href="{% url 'cart' %}" class="d-flex align-items-center">
-                    <!-- <img id="cart-icon" src="{% static 'images/cart.png'%}" alt=""> -->
-                    <!-- <p id="cart-total" class="mb-0 ms-2">{{ request.session.cart_items|default:0 }}</p> -->
+                    <!-- <ion-icon name="cart-outline" style="font-size: 24px; color: white;"></ion-icon> -->
+                    <img id="cart-icon" src="{% static 'images/cart.png' %}" alt="">
                     <p id="cart-total" class="mb-0 ms-2">{{cartItems}}</p>
                 </a>
             </div>
