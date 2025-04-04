@@ -1,0 +1,11 @@
+Copyright (c) Brian Kihia Kiama, 2025
+
+This software is provided to Frank Hezekia strictly for review purposes only.
+
+Any use, reproduction, distribution, modification, or deployment of this software 
+without prior written consent and full payment is strictly prohibited.
+
+Upon receipt of full payment, a limited, non-exclusive, non-transferable license 
+will be granted to the client in accordance with the terms of the agreement.
+
+Unauthorized use of this software may result in legal action.
