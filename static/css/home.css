@@ -1,0 +1,288 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing:border-box;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    margin-right: 10px;
+}
+nav {
+    flex: 1;
+    text-align: right;
+}
+nav ul {
+    display: inline-block;
+    list-style-type: none;
+    padding-top: 25px;
+
+}
+nav ul li {
+    display: inline-block;
+    margin-right: 20px;    
+}
+.navbar nav ul li a:link, a:visited {
+    text-decoration: none;
+    transition-duration: 0.4s;
+}
+.navbar nav ul a:hover, a:active {
+    color: #404040;
+}
+.container {
+    height: 600px;
+    /* static files are working the one in the main root not the one in tools*/
+    background-image: url('/static/images/chair_and_lamp.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.text {
+    color: white;
+    font-size: 20px;
+    font-weight: lighter;
+    max-width: 1300px;
+    padding-left: 25px;
+    padding-top: 100px;
+    position: absolute;
+    right: 50px;
+    top: 200px;
+}
+h1 {
+    color: #add8e6;
+    font-weight: bold;
+}
+.get {
+    position: absolute;
+    bottom: 120px;
+    right: 200px;
+}
+.get a:link, a:visited {
+    text-decoration: none;
+    color: white;
+    background-color: #404040;
+    padding: 8px 16px;
+    transition: 0.5s;
+
+    /*transition-property: transform;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    transition-delay: 0s;*/
+}
+.get a:hover, a:active {
+    color: #404040;
+    background-color: #ccc;
+
+    /*transform: translateY(-10px);
+    */
+    
+
+
+}
+.own{
+    color: #404040;
+}
+.searchbox{
+    position: absolute;
+    left: 40%;
+    top: 7%;
+    width: 100px;
+    height: 100px;
+    opacity: 0.3;
+}
+.input_search{
+    width: 300px;
+    height: 35px;
+    border: 0;
+    border-radius: 25px;
+    padding: 12px 25px 12px;
+}
+.icon{
+    cursor: pointer;
+    position: absolute;
+    left: 61%;
+    top: 9%;
+    border-radius: 25px;
+}
+.icon:hover{
+    cursor: pointer;
+    position: absolute;
+    left: 61%;
+    top: 9%;
+    border-radius: 25px;
+    font-size: 15px;
+}
+
+.cart a{
+    position: absolute;
+    top: 7.5%;
+    cursor: pointer;
+    display: inline-block;
+    color: white;
+    font-size: 20px;
+    transition-duration: 0.5s;
+}
+.cart a:hover{
+    color:#404040 ;
+}
+.gallery{
+    display: inline-block;
+    margin: 20px;
+    width: 200px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+/*.gallery :hover{
+    border: 1px solid #777
+
+}*/
+.gallery img{
+    width: 200px;
+    height: 250px;
+}
+.desc{
+    padding: 15px;
+    text-align: center;
+}
+.title{
+    color: #404040;
+    background-color: #ccc;
+}
+.title h4{
+    text-decoration: underline;
+    text-align: center;
+    padding-top: 20px;
+    font-weight: lighter;
+}
+.design{
+    color: #ccc;
+    padding-top: 25px;
+    padding-left: 25px;
+    background-color: #404040;
+    height: 300px;
+    background-image: url(design.jpg);
+    padding: 70px;
+    background-repeat: no-repeat;
+    background-origin: content-box;
+    background-position: right;
+    background-size: 300px 200px;
+}
+.gallery_text{
+    display: flex;
+    float: left;
+    font-size:25px;
+    border: none;
+    margin: 5px;
+    width: 180px;
+    height: auto;
+    padding: 20px;
+    border-radius: 20px;
+    color: #ccc;
+    background-color: #404040;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+#explore{
+    display: flex;
+    text-align: end;
+    color: #add8e6;
+}
+.desc{
+    display: inline-block;
+    align-items: flex-start;
+}
+.desc p{
+    color: #404040;
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+.desc h4{
+    color: #404040;
+    text-decoration: none;
+    float: right;
+}
+.desc .add_to_cart{
+    display: inline-block;
+    color: black;
+    background-color: white;
+    border: 1px solid #969494;
+    border-radius: 25px;
+    width: 80px;
+    height: 30px;
+    margin-top: 15px;
+    cursor: pointer;
+
+    transition-property: transform;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+}
+.desc .add_to_cart:hover{
+    transform: translateY(-5px);
+}
+.desc .buy_now{
+    display: inline-block;
+    color: white;
+    background-color: #404040;
+    border: 0;
+    border-radius: 20px;
+    width: 80px;
+    height: 30px;
+    margin-top: 15px;
+    cursor: pointer;
+
+    transition-property: transform;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+}
+.desc .buy_now:hover{
+    transform: translateY(-5px);
+}
+.categories{
+     max-height: fit-content;
+     background-color: #ccc;
+}
+.categories h4{
+    text-decoration: underline;
+    text-align: center;
+    padding-top: 5px;
+}
+.top_cat{
+    padding-top: 20px;
+    display: inline-block;
+}
+.couch_pic{
+    padding-left: 20px;
+    position: relative;
+    display: inline-block;
+}
+.lamp_pic{
+    position: relative;
+    display: inline-block;
+}
+.couch h2{
+    color: #ccc;
+    text-decoration-line: underline;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+.lamp h2{
+    color: #404040;
+    text-decoration: underline;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+.star{
+    margin-top: 5px;
+    float: left;
+}
