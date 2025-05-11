@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'store.apps.StoreConfig',
     'accounts',
     'paypal.standard.ipn',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
